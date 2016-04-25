@@ -13,7 +13,7 @@ public class Purchase extends Transaction
     
     public Purchase(InventoryItem item, int q) 
     {
-        super();
+        super(1);
         this.purchasedItem = item;
         this.quantity = q;
         this.total = item.getPrice() * (double)q;

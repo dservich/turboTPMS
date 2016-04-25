@@ -13,7 +13,7 @@ public class InventoryItem
     private int numberOnHand;
     private double price;
     
-    public InventoryItem(String n,int q, int p)
+    public InventoryItem(String n,int q, double p)
     {
         this.UID = UUID.randomUUID();
         this.itemName = n;
@@ -39,5 +39,9 @@ public class InventoryItem
     public double getPrice()
     {
         return this.price;
+    }
+    public String getName()
+    {
+        return this.itemName;
     }
 }

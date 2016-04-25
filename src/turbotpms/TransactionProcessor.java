@@ -19,20 +19,27 @@ public class TransactionProcessor implements Runnable
     
     private void queueTransaction()
     {
-        if(this.parentManager.getQueueLength() > 0)
+        synchronized(this.parentManager)
         {
-            this.currentTransaction = this.parentManager.fetchNextTransaction();
-            //Thread.yield();
-            if(!ManagerController.getAccountMananger().getDemo().getLock())
+            if(this.parentManager.getQueueLength() > 0)
             {
-                ManagerController.getAccountMananger().getDemo().setLock(true);
-                tick();
-                ManagerController.getAccountMananger().getDemo().setLock(false);
+                this.currentTransaction = this.parentManager.fetchNextTransaction();
+                //Thread.yield();
+                synchronized(ManagerController.getAccountMananger().getDemo())
+                {
+                    if(!ManagerController.getAccountMananger().getDemo().getLock())
+                    {
+                        ManagerController.getAccountMananger().getDemo().setLock(true);
+                        tick();
+                        ManagerController.getAccountMananger().getDemo().setLock(false);
+                    }
+                }
             }
         }
     }
     private void tick()
     {
+        System.out.println("Processing transaction");
             currentTransaction.setStatus(1);
             
             if(currentTransaction.getType() == 0)//order
@@ -45,11 +52,13 @@ public class TransactionProcessor implements Runnable
                 Purchase p = (Purchase)currentTransaction;
                 if((ManagerController.getInventoryManager().getInventory().lookup(p.getItem().getUID())) != null)//ITEM CAN BE FOUND
                 {
-                    ManagerController.getInventoryManager().sellQuantity(p.getID(), p.getQuantity());
+                    ManagerController.getInventoryManager().sellQuantity(p.getItem().getUID(), p.getQuantity());
                     ManagerController.getAccountMananger().getDemo().deposit(p.getTotal());
                     currentTransaction.setProcessTimestamp();
                     currentTransaction.setStatus(2);
                 }
+                System.out.println("Purchase complete, sold "+p.getQuantity()+" of item "+p.getItem().getName());
+                System.out.println("Final balance: $"+ManagerController.getAccountMananger().getDemo().getBalance());
             }
             else if (currentTransaction.getType() == 2)//retrun
             {

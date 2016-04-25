@@ -29,11 +29,12 @@ public abstract class Transaction
     private final UUID ID;
     //private final int quantity;
     
-    public Transaction()
+    public Transaction(int type)
     {
         this.creationTimestamp = new Timestamp(new Date().getTime());
         this.ID = UUID.randomUUID();
         this.status = -1;
+        this.type = type;
     }
     public void setProcessTimestamp()
     {

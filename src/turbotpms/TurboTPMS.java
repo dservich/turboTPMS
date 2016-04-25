@@ -21,6 +21,7 @@ public class TurboTPMS {
         {
             System.out.println("Manager constructed");
         }
+        Tester t = new Tester();
     }
     
 }

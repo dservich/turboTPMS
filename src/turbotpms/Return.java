@@ -10,7 +10,7 @@ public class Return extends Transaction
     
     public Return(Purchase p) 
     {
-        super();
+        super(2);
         this.returnedPurchase = p;
     }
     
