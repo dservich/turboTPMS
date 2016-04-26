@@ -56,9 +56,12 @@ public class TransactionProcessor implements Runnable
                     ManagerController.getAccountMananger().getDemo().deposit(p.getTotal());
                     currentTransaction.setProcessTimestamp();
                     currentTransaction.setStatus(2);
+                    System.out.println("Purchase complete, sold "+p.getQuantity()+" of item "+p.getItem().getName());
+                    System.out.println("Final balance: $"+ManagerController.getAccountMananger().getDemo().getBalance());
+                    ManagerController.getDatabaseManager().addTransactionToRecord("purchase", Integer.toString(p.getQuantity()), Double.toString(p.getTotal()));
                 }
-                System.out.println("Purchase complete, sold "+p.getQuantity()+" of item "+p.getItem().getName());
-                System.out.println("Final balance: $"+ManagerController.getAccountMananger().getDemo().getBalance());
+                
+                
             }
             else if (currentTransaction.getType() == 2)//retrun
             {
@@ -70,7 +73,11 @@ public class TransactionProcessor implements Runnable
                     ManagerController.getAccountMananger().getDemo().withdraw(r.getReturnedPurchase().getTotal());
                     currentTransaction.setProcessTimestamp();
                     currentTransaction.setStatus(2);
+                    System.out.println("Return complete, took "+p.getQuantity()+" of item "+p.getItem().getName());
+                    System.out.println("Final balance: $"+ManagerController.getAccountMananger().getDemo().getBalance());
+                    ManagerController.getDatabaseManager().addTransactionToRecord("return", Integer.toString(p.getQuantity()), Double.toString(p.getTotal()));
                 }
+                
             }
             else//probably error
             {
