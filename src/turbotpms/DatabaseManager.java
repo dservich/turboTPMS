@@ -23,23 +23,24 @@ public class DatabaseManager
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(host, user, pass);
+            conn = DriverManager.getConnection(host, user, pass);
         }
         catch(Exception e)
         {
             System.out.println("problem");
         }
     }
-    public void addTransactionToRecord(String type, String qty, String amt)
+    public void addTransactionToRecord(String type,String item, String qty, String amt)
     {
         try
         {
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("insert into transactions\n (type, quantity, ammount)\n values \n ('"+type+"','"+qty+"','"+amt+"', );");
+            stmt.executeUpdate("insert into transactions\n (type, item, quantity, amount)\n values \n ('"+type+"','"+item+"','"+qty+"','"+amt+"');");
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
-            System.out.println("problem");
+            System.out.println("insert problem");
+            System.out.println(e.getMessage());
         }
     }
     
