@@ -72,11 +72,12 @@ public class TransactionServerHandler extends Thread
 	public void sendInventory()
 	{
             String data = "";
-            System.out.println("Sending Data here");
+            
             for(InventoryItem i : ManagerController.getInventoryManager().getInventory().getInventory())
             {
-                data+=i.getName() + "|" + Integer.toString(i.getNumberOnHand())+"|"+Double.toString(i.getPrice())+"|";
+                data+=i.getName() + ":::" + Integer.toString(i.getNumberOnHand())+":::"+Double.toString(i.getPrice())+"#";
             }
+            System.out.println("Sending Data:: " + data);
 		try
 		{
 			for(int k = 0; k < clientList.size(); k++)
