@@ -69,6 +69,10 @@ public class TransactionProcessor implements Runnable
                 Purchase p = r.getReturnedPurchase();
                 if((ManagerController.getInventoryManager().getInventory().lookup(r.getReturnedPurchase().getItem().getUID())) != null)//ITEM CAN BE FOUND
                 {
+                    if(p != null)
+                    {
+                        
+                    }
                     ManagerController.getInventoryManager().stockQuantity(p.getID(), p.getQuantity());
                     ManagerController.getAccountMananger().getDemo().withdraw(r.getReturnedPurchase().getTotal());
                     currentTransaction.setProcessTimestamp();

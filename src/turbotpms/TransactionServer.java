@@ -27,12 +27,13 @@ public class TransactionServer extends Thread
     {
         try
         {
-            Thread srv = new TransactionServer(9898);
-            srv.start();
+            //Thread srv = new TransactionServer(5001);
+            this.start();
         }
         catch(Exception e)
         {
-            System.out.println("Problem");
+            System.out.println("Server Launch Error");
+            System.out.println(e.getMessage());
         }
     }
     
@@ -44,12 +45,8 @@ public class TransactionServer extends Thread
             {
 		Socket client = socket.accept();
 		this.clients.add(client);
-                
+                System.out.println("CLIENT HOOKED");
 		DataInputStream in = new DataInputStream(client.getInputStream());
-		String message = in.readUTF();
-		System.out.println("Message from " + client.getRemoteSocketAddress() + ": " + message);
-		DataOutputStream out = new DataOutputStream(client.getOutputStream());
-		out.writeUTF("CONNECTED");
 		Thread serverMessageHandler = new TransactionServerHandler(clients.size()-1, this.clients);
 		serverMessageHandler.start();
             }

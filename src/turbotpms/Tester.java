@@ -19,15 +19,16 @@ public class Tester
     {
         
         //ADD SOME THINGS TO THE INVENTORY
-        InventoryItem i = new InventoryItem("Bolt",300000,1.50);
-        InventoryItem j = new InventoryItem("Nut",300000,0.50);
-        InventoryItem k = new InventoryItem("Screw",300000,2.00);
+        InventoryItem i = new InventoryItem("Bolt",3000,1.50);
+        InventoryItem j = new InventoryItem("Nut",3000,0.50);
+        InventoryItem k = new InventoryItem("Screw",3000,2.00);
         
         ManagerController.getInventoryManager().addItemToInventory(i);
         ManagerController.getInventoryManager().addItemToInventory(j);
         ManagerController.getInventoryManager().addItemToInventory(k);
         
         //QUEUE UP SOME TRANSACTIONS
+        /*
         for(int x=0;x<1000;x++)
         {
             Transaction t = new Purchase(i,20);
@@ -39,7 +40,7 @@ public class Tester
             t = new Purchase(k,80);
             ManagerController.getTransactionManager().queueTransaction(t);
         }
-        
+        */
         
     }
 }

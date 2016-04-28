@@ -27,14 +27,17 @@ public class Inventory
     }
     public InventoryItem lookupByName(String name)
     {
+        System.out.println("Looking up " +name);
         Iterator it = inventory.entrySet().iterator();
         
         while(it.hasNext())
         {
             Map.Entry pair = (Map.Entry)it.next();
             InventoryItem i = (InventoryItem)pair.getValue();
+            System.out.println("Checking against "+i.getName());
             if(i.getName().equals(name))
             {
+                System.out.println("Found item");
                 return i;
             }
         }

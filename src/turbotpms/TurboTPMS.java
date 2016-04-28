@@ -1,8 +1,5 @@
 package turbotpms;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,8 +25,9 @@ public class TurboTPMS {
         }
         try 
         {
-            //Tester t = new Tester();
+            Tester t = new Tester();
             TransactionServer srv = new TransactionServer(5001);
+            srv.launch();
         } 
         catch (Exception ex) 
         {
